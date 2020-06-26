@@ -168,7 +168,7 @@ function layout (element) {
             if (elementStyle[crossSize] !== null || elementStyle[crossSize] !== (void 0)) {
                 crossSpace = Math.max(crossSpace, elementStyle[crossSize])
             }
-            mainSpace -= elementStyle[mainSize]
+            mainSpace -= itemStyle[mainSize]
         }
     }
 
@@ -222,32 +222,34 @@ function layout (element) {
                     }
 
                     itemStyle[mainStart] = currentMain
-                    itemStyle[mainEnd] = itemStyle[mainStart] * mainSign
+                    itemStyle[mainEnd] = itemStyle[mainStart] + itemStyle[mainSize] * mainSign
                     currentMain = itemStyle[mainEnd]
                 }
             } else {
+                let currentMain = mainBase
+                let step = 0
                 if (style.justifyContent === 'flex-start') {
-                    let currentMain = mainBase
-                    let step = 0
+                    currentMain = mainBase
+                    step = 0
                 } else if (style.justifyContent === 'flex-end') {
-                    let currentMain = mainSpace * mainSign + mainBase
-                    let step = 0
+                    currentMain = mainSpace * mainSign + mainBase
+                    step = 0
                 } else if (style.justifyContent === 'center') {
-                    let currentMain = mainSpace / 2 * mainSign + mainBase
-                    let step = 0
+                    currentMain = mainSpace / 2 * mainSign + mainBase
+                    step = 0
                 } else if (style.justifyContent === 'space-between') { // 空白区域全等宽
-                    let currentMain = mainBase
-                    let step = mainSpace / (items.length - 1) * mainSign
+                    currentMain = mainBase
+                    step = mainSpace / (items.length - 1) * mainSign
                 } else if (style.justifyContent === 'space-around') {
-                    let step = mainSpace / items.length * mainSign
-                    let currentMain = step / 2 + mainBase
+                    step = mainSpace / items.length * mainSign
+                    currentMain = step / 2 + mainBase
                 }
 
                 for (let i = 0; i < items.length; i++) {
                     let itemStyle = getStyle(items[i])
     
                     itemStyle[mainStart] = currentMain
-                    itemStyle[mainEnd] = itemStyle[mainStart] + mainBase * mainSign
+                    itemStyle[mainEnd] = itemStyle[mainStart] + itemStyle[mainSize] * mainSign
                     currentMain = step + itemStyle[mainEnd]
                 }
             }
@@ -334,6 +336,6 @@ function layout (element) {
         crossBase += crossSign * (lineCrossSize + step)
     })
 
-    console.log(element)
+    // console.log(element)
 }
 module.exports = layout
