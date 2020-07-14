@@ -397,7 +397,7 @@ function afterQuoteAttributeValue(c) {
    if (c.match(/^[\t\n\f ]$/)) {
       return beforeAttributeName
    } else if (c === '/') {
-      return isSelfClosing
+      return selfClosingStartTag
    } else if (c === '>') {
       currentToken[currentAttribute.name] = currentAttribute.value
       emit(currentToken)
@@ -415,7 +415,7 @@ function unquoteAttributeValue(c) {
       return beforeAttributeName
    } else if (c === '/') {
       currentToken[currentAttribute.name] = currentAttribute.value
-      return isSelfClosing
+      return selfClosingStartTag
    } else if (c === '>') {
       currentToken[currentAttribute.name] = currentAttribute.value
       emit(currentToken)
