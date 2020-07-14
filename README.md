@@ -3,11 +3,11 @@
 
 运行server
 ```
-npm server.js
+node server.js
 ```
 
 执行http，生成layout图
 ```
 cd browser
-npm client.js
+node client.js
 ```
